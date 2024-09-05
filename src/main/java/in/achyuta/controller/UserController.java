@@ -14,6 +14,10 @@ public class UserController {
 	public String signUpPage() {
 		return "signup";
 	}
+	@GetMapping("/unlock")
+	public String unlockPage() {
+		return "unlock";
+	}
 	@GetMapping("/forgot")
 	public String forgotPwdPage() {
 		return "forgotPwd";
