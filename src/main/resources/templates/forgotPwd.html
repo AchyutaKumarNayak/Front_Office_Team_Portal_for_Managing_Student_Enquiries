@@ -1,10 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Recovery</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        /* Header */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .header img {
+            height: 50px;
+        }
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+        .nav .login-btn {
+            background-color: #FF5722;
+            padding: 8px 15px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        /* Container */
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            background-color: white;
+            margin: 40px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            padding: 40px;
+            flex: 1;
+        }
+        .form-container h2 {
+            color: #FF5722;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-container input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container button {
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #E64A19;
+        }
+        .form-container .small-text {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .form-container .small-text a {
+            color: #FF5722;
+            text-decoration: none;
+        }
+        .side-text {
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            flex: 1;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        .side-text h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .side-text p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
+
+<!-- Header Section -->
+<div class="header">
+    <div class="header-container">
+        <img src="image/logo.png" alt="Ashok IT Logo">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="#">Services</a>
+            <a href="#">Courses</a>
+            <a href="#">Contact us</a>
+            <a href="login" class="btn btn-danger">Log in</a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Section -->
+<div class="container">
+    <!-- Form Section -->
+    <div class="form-container">
+        <h2>Recover Your Password</h2>
+        <form>
+            <input type="email" placeholder="Email Address" required>
+            <button type="submit">SUBMIT</button>
+        </form>
+        <div class="small-text">
+            <p>Don’t have an account? <a href="signup">CREATE NEW</a></p>
+        </div>
+    </div>
+
+    <!-- Side Text Section -->
+    <div class="side-text">
+        <h2>Achyuta IT</h2>
+        <p>Achyuta IT is more than just a Software Training Institute</p>
+        <p>Student Satisfaction is at most important for us.</p>
+    </div>
+</div>
 
 </body>
 </html>
