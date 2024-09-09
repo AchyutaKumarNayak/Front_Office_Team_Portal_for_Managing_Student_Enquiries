@@ -13,7 +13,7 @@ import lombok.Data;
 public class EnquiryStatusEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "my_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer statusId;
 	private String statusName;
 

@@ -13,7 +13,7 @@ import lombok.Data;
 public class CourseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE ,generator = "my_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer courseId;
 	private Integer coueseName;
 

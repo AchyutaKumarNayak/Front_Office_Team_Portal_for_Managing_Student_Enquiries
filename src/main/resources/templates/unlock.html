@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,6 +85,7 @@
     <div class="form-container">
         <h2>Unlock your account here</h2>
         <p>Your Email: yourmail@gmail.com</p>
+      <form th:action=""  th:object="" method="POST">
         <input type="password" placeholder="Temporary Password" required>
         <input type="password" placeholder="New Password" required>
         <input type="password" placeholder="Confirm Password" required>
@@ -92,6 +93,7 @@
         <div class="small-text">
             <p>Already Unlocked? <a href="login">LOGIN HERE</a></p>
         </div>
+      </form>
     </div>
     <div class="side-text">
         <h2>Achyuta IT</h2>
