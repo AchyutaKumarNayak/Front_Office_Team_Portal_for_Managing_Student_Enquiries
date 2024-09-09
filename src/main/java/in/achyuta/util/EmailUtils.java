@@ -21,8 +21,8 @@ public class EmailUtils {
 			MimeMessageHelper helper=new MimeMessageHelper(mimeMessage);
 			
 			helper.setTo(to);
-			helper.setText(body, true);
 			helper.setSubject(subject);
+			helper.setText(body, true);
 			
 			mailSender.send(mimeMessage);
 			isSent=true;

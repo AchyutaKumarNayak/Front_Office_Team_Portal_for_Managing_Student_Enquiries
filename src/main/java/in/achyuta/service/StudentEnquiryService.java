@@ -2,13 +2,12 @@ package in.achyuta.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 
 import in.achyuta.bindings.DashboardResponse;
 import in.achyuta.bindings.EnquirySearchCriteria;
 import in.achyuta.bindings.StudentEnquiryForm;
 
-@Service
+
 public interface StudentEnquiryService {
 	
 	//For getting course name from dropdown in addenquiry page

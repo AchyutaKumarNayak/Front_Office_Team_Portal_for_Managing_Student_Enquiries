@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -15,7 +17,7 @@ import lombok.Data;
 public class StudentEnquiryEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "my_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE )
 	private Integer enquiryId;
 	private String studentName;
 	private Long studentPhn;
@@ -24,7 +26,9 @@ public class StudentEnquiryEntity {
 	private String enquiryStatus;
 	private LocalDate createdDate;
 	private LocalDate updatedDate;
-	private Integer userId;
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+	private UserEntity user;
 	
 	
 

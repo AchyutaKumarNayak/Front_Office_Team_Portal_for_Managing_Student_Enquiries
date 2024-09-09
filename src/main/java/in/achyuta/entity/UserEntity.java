@@ -18,12 +18,12 @@ import lombok.Data;
 public class UserEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE ,generator = "my_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer userId;
 	private String userName;
 	private String userEmail;
-	private Long userPhn;
 	private String password;
+	private Long userPhn;
 	private String accountStatus;
 	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
