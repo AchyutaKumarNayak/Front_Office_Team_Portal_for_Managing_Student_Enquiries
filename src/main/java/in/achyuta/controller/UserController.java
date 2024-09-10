@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import in.achyuta.bindings.LoginForm;
 import in.achyuta.bindings.SignUpForm;
 import in.achyuta.bindings.UnlockForm;
 import in.achyuta.service.UserService;
@@ -47,14 +48,30 @@ public class UserController {
 		return "unlock";
 	}
 	@PostMapping("/unlock")
-	public String unlockPage(@ModelAttribute("unlock") UnlockForm form, Model model) {
+	public String unlockUserAccount(@ModelAttribute("unlock") UnlockForm form, Model model) {
 		
-		
+		if((form.getNewPassword()).equals(form.getConfirmPassword())) {
+			boolean status = userService.unlock(form);
+			if(status) {
+				model.addAttribute("succMsg", "Account unlocked Succesfully");
+			}else {
+				model.addAttribute("errMsg", "Temporary password is incorrect , Please check your email");
+			}
+		}else {
+			model.addAttribute("errMsg", "New password and Confirm password must be same");
+		}
+//		System.out.println(form);
 		return "unlock";
 	}
 	
 	@GetMapping("/login")
-	public String logInPage() {
+	public String logInPage(Model model){
+		 model.addAttribute("login", new LoginForm());
+		return "login";
+	}
+	@PostMapping("/login")
+	public String logInPageHandle(@ModelAttribute("login") Model model,LoginForm form){
+		
 		return "login";
 	}
 	

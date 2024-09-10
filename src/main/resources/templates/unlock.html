@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +36,14 @@
             margin-bottom: 20px;
         }
         .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container input[type="text"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -83,12 +91,16 @@
 
 <div class="container">
     <div class="form-container">
+      
         <h2>Unlock your account here</h2>
-        <p>Your Email: yourmail@gmail.com</p>
-      <form th:action=""  th:object="" method="POST">
-        <input type="password" placeholder="Temporary Password" required>
-        <input type="password" placeholder="New Password" required>
-        <input type="password" placeholder="Confirm Password" required>
+        <h5>Your Email: <p th:text="${unlock.userEmail}"></h5>
+        <p th:text="${succMsg}" class="text-success">
+        <p th:text="${errMsg}" class="text-danger">         
+      <form th:action="@{/unlock}"  th:object="${unlock}" method="POST">
+        <input type="hidden" th:field="${unlock.userEmail}">
+        <input type="text" placeholder="Temporary Password" th:field="*{tempPassword}" required>
+        <input type="password" placeholder="New Password" th:field="*{newPassword}" required>
+        <input type="password" placeholder="Confirm Password" th:field="*{confirmPassword}" required>
         <button type="submit">UNLOCK</button>
         <div class="small-text">
             <p>Already Unlocked? <a href="login">LOGIN HERE</a></p>
