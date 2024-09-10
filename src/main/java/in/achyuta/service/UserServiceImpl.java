@@ -65,8 +65,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean unlock(UnlockForm form) {
-		// TODO Auto-generated method stub
-		return false;
+		UserEntity user = userRepo.findByUserEmail(form.getUserEmail());
+		 if((user.getPassword()).equals(form.getTempPassword())) {
+			 user.setPassword(form.getNewPassword());
+			 user.setAccountStatus("UNLOCKED");
+			 userRepo.save(user);
+			 return true;
+		 }else {
+			 return false;
+		 }	
 	}
 
 	@Override
