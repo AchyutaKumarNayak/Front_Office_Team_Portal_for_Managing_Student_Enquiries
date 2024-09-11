@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,9 +90,10 @@
         <div class="login-left">
             <img alt="" src="image/logo.png" width="150px">
             <h2>Please login to your account</h2>
-            <form action="dashboard" method="GET">
-                <input type="email" name="useremail" placeholder="Useremail" required>
-                <input type="password" name="password" placeholder="Password" required>
+            <p th:text="${errMsg}" class="text-danger"/>
+            <form th:action="@{/login}" th:object="${loginForm}" method="POST">
+                <input type="email" placeholder="Useremail" th:field="*{userEmail}" required>
+                <input type="password" placeholder="Password" th:field="*{password}" required>
                 <button type="submit" >LOG IN</button>
                 <a href="forgot">Forgot password?</a>
                 <a href="signup">CREATE NEW</a>

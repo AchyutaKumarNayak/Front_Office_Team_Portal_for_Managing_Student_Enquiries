@@ -1,6 +1,7 @@
 package in.achyuta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	
 	
 	
 	@GetMapping("/signup")
@@ -66,11 +69,17 @@ public class UserController {
 	
 	@GetMapping("/login")
 	public String logInPage(Model model){
-		 model.addAttribute("login", new LoginForm());
+		 model.addAttribute("loginForm", new LoginForm());
 		return "login";
 	}
 	@PostMapping("/login")
-	public String logInPageHandle(@ModelAttribute("login") Model model,LoginForm form){
+	public String logInPageHandle(@ModelAttribute("login") LoginForm form,Model model){
+		String status = userService.login(form);
+		if(status.contains("success")) {
+			return "redirect:/dashboard";
+		}else {
+			model.addAttribute("errMsg", status);
+		}
 		
 		return "login";
 	}
@@ -80,5 +89,16 @@ public class UserController {
 	public String forgotPwdPage() {
 		return "forgotPwd";
 	}
-
+	@PostMapping("/forgot")
+	public String forgotPwdPageHandle(@RequestParam("email") String email,Model model) {
+		System.out.println(email);
+		boolean status = userService.fotgot(email);
+		if (status) {
+			model.addAttribute("succMsg", "Password is send to "+email);
+		}else {
+			model.addAttribute("errMsg","Invalid Credentials");
+		}
+		return "forgotPwd";
+	}
+	
 }

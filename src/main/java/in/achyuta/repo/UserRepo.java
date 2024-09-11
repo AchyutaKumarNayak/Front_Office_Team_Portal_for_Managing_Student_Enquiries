@@ -9,5 +9,6 @@ import in.achyuta.entity.UserEntity;
 public interface UserRepo extends JpaRepository<UserEntity, Integer> {
 	
 	public UserEntity findByUserEmail(String email);
+	public UserEntity findByUserEmailAndPassword(String email,String password);
 
 }

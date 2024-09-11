@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,14 +95,15 @@
         </li>
       </ul>
     </div>
+    <a href="/logout" class="btn btn-danger">Logout</a>
   </div>
 </nav>
 <div class="content">
     <h2>Your Performance</h2>
     <div class="performance">
-        <span>Total Enquiries: 256</span>
-        <span class="enrolled">Enrolled: 84</span>
-        <span class="lost">Lost: 172</span>
+        <span>Total Enquiries:</span><p th:text="${dashboardRes.totalEnquiriesCount}"/>
+        <span class="enrolled">Enrolled:</span><p th:text="${dashboardRes.enrolledCount}"/>
+        <span class="lost">Lost:</span><p th:text="${dashboardRes.lostCount}"/>
     </div>
     <div class="avatar">
         <img src="image/lady.jpeg" alt="Avatar" style="height: 150px;">
