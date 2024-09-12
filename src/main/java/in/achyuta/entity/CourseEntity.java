@@ -15,6 +15,6 @@ public class CourseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer courseId;
-	private Integer coueseName;
+	private String courseName;
 
 }

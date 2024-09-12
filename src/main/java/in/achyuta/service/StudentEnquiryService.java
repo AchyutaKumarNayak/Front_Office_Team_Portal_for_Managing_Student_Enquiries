@@ -10,17 +10,17 @@ import in.achyuta.bindings.StudentEnquiryForm;
 
 public interface StudentEnquiryService {
 	
+	//Getting Dashboard based on user id
+     public DashboardResponse getDashboardRes(Integer userId);
+	
 	//For getting course name from dropdown in addenquiry page
-	public List<String> getCourseName();
+	public List<String> getCoursesName();
 	
 	//For getting enuiry status name from dropdown in addenquiry page
-	public List<String> getEnquiryStatus();
-	
-	//Getting Dashboard based on user id
-	public DashboardResponse getDashboardRes(Integer userId);
+	public List<String> getEnquiriesStatus();
 	
 	//For addEnquiry page adding Student enquiry
-	public String upsertEnquiry(StudentEnquiryForm form);
+	public boolean upsertEnquiry(StudentEnquiryForm form);
 	
 	//getting StudentEnquiryForm at the page of ViewEnquiries
 	public List<StudentEnquiryForm> viewEnquires(Integer userId,EnquirySearchCriteria search);
