@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 			 user.setPassword(form.getNewPassword());
 			 //Set accountStatus as unlocked
 			 user.setAccountStatus("UNLOCKED");
-			 //save the updated user in DB
+			 //save the updated user in DB 
 			 userRepo.save(user);
 			 return true;
 		 }else {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,21 +64,22 @@
     <div class="custom-header">
         <h2>Add Student Enquiry Here</h2>
     </div>
-
-    <form>
+      <p th:text="${succMsg}" class="text-success">
+      <p th:text="${errMsg}" class="text-danger">
+    <form th:action="@{/enquiry}" th:object="${addEnquiry}" method="POST">
         <div class="mb-3">
             <label for="studentName" class="form-label">Student Name</label>
-            <input type="text" class="form-control" id="studentName" placeholder="Enter Student Name">
+            <input type="text" class="form-control" id="studentName" placeholder="Enter Student Name" th:field="*{studentName}">
         </div>
 
         <div class="mb-3">
             <label for="contactNumber" class="form-label">Contact Number</label>
-            <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number">
+            <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number" th:field="*{studentPhn}">
         </div>
 
         <div class="mb-3">
             <label for="classMode" class="form-label">Class Mode</label>
-            <select class="form-select" id="classMode">
+            <select class="form-select" id="classMode" th:field="*{courseMode}">
                 <option value="">-Select-</option>
                 <option value="Online">Online</option>
                 <option value="Offline">Offline</option>
@@ -87,19 +88,17 @@
 
         <div class="mb-3">
             <label for="course" class="form-label">Course</label>
-            <select class="form-select" id="course">
-                <option value="Java Fullstack">Java Fullstack</option>
-                <option value="Python">Python</option>
-                <option value="Data Science">Data Science</option>
+            <select class="form-select" id="course" th:field="*{courseName}">
+                <option value="">-Select-</option>
+                <option th:each="course : ${coursesName}" th:value="${course}"  th:text="${course}" > </option>
             </select>
         </div>
 
         <div class="mb-3">
             <label for="enquiryStatus" class="form-label">Enquiry Status</label>
-            <select class="form-select" id="enquiryStatus">
-                <option value="New">New</option>
-                <option value="In Progress">Enrolled</option>
-                <option value="Closed">Lost</option>
+            <select class="form-select" id="enquiryStatus" th:field="*{enquiryStatus}">
+                <option value="">-Select-</option>
+                <option th:each="status : ${enquiriesStatus}" th:value="${status}"  th:text="${status}" > </option>
             </select>
         </div>
 
