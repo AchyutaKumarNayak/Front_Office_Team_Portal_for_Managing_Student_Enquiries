@@ -116,8 +116,42 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 	}
 
 	@Override
-	public List<StudentEnquiryForm> viewEnquires(Integer userId, EnquirySearchCriteria search) {
-		// TODO Auto-generated method stub
+	public List<StudentEnquiryEntity> viewEnquires() {
+		Integer userId = (Integer)session.getAttribute("userId");
+		Optional<UserEntity> byId = userRepo.findById(userId);
+		if(byId.isPresent()) {
+			UserEntity userEntity = byId.get();
+			List<StudentEnquiryEntity> enquires = userEntity.getEnquires();
+			return enquires;
+		}
+		return null;
+	}
+	@Override
+	public List<StudentEnquiryEntity> viewFilteredEnquiries(EnquirySearchCriteria search, Integer userId) {
+		Optional<UserEntity> byId = userRepo.findById(userId);
+		if(byId.isPresent()) {
+			UserEntity userEntity = byId.get();
+			List<StudentEnquiryEntity> enquires = userEntity.getEnquires();
+			if(null!=search.getCourseName() && !"".equals(search.getCourseName())) {
+				enquires =	enquires.stream()
+				            .filter(e->e.getCourseName().equals(search.getCourseName()))
+				            .collect(Collectors.toList());
+			}
+			if(null!=search.getEnquiryStatus() && !"".equals(search.getEnquiryStatus())) {
+				enquires =   enquires.stream()
+				            .filter(e->e.getEnquiryStatus().equals(search.getEnquiryStatus()))
+				            .collect(Collectors.toList());
+				            
+			}
+			if(null!=search.getCourseMode() && !"".equals(search.getCourseMode())) {
+				enquires =   enquires.stream()
+				                     .filter(e->e.getCourseMode().equals(search.getCourseMode()))
+				                     .collect(Collectors.toList());
+				            
+			}
+				
+			return enquires;
+		}	
 		return null;
 	}
 
@@ -126,5 +160,8 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+	
 
 }

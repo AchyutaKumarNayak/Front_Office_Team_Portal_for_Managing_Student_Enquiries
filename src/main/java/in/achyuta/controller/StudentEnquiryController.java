@@ -2,16 +2,19 @@ package in.achyuta.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.achyuta.bindings.DashboardResponse;
+import in.achyuta.bindings.EnquirySearchCriteria;
 import in.achyuta.bindings.StudentEnquiryForm;
+import in.achyuta.entity.StudentEnquiryEntity;
 import in.achyuta.service.StudentEnquiryService;
 import jakarta.servlet.http.HttpSession;
 
@@ -69,9 +72,42 @@ public class StudentEnquiryController {
 		}
 		return "addEnquiry";
 	}
+	private void initForm(Model model) {
+		List<String> coursesName = studentEnquiryService.getCoursesName();
+		List<String> enquiriesStatus = studentEnquiryService.getEnquiriesStatus();
+		StudentEnquiryForm studentEnquiryForm=new StudentEnquiryForm();
+		
+		model.addAttribute("coursesName", coursesName);
+		model.addAttribute("enquiriesStatus",enquiriesStatus);
+		model.addAttribute("studentEnquiryForm", studentEnquiryForm);
+	}
 	@GetMapping("/enquires")
-	public String viewEnquiryPage() {
+	public String viewEnquiryPage(Model model) {
+		initForm(model);
+		List<StudentEnquiryEntity> enquiries = studentEnquiryService.viewEnquires();
+		model.addAttribute("enquiries", enquiries);
+		
 		return "viewEnquiry";
 	}
+	@GetMapping("filter-enquiries")
+    public String filteredEnquiries(@RequestParam String courseName,
+    		                        @RequestParam String enqSts,
+    		                        @RequestParam String courseMode,Model model) {
+    	EnquirySearchCriteria search= new EnquirySearchCriteria();
+    	search.setCourseName(courseName);
+    	search.setEnquiryStatus(enqSts);
+    	search.setCourseMode(courseMode);
+    	
+    	System.out.println(search);
+    	//Get the session id for specifeid user(Successful Logger) by using the key name 
+        //in.achyuta.UserServiceImpl  line no 41
+    	Integer userId =(Integer)session.getAttribute("userId");
+    	List<StudentEnquiryEntity> viewFilteredEnquiries = studentEnquiryService.viewFilteredEnquiries(search, userId);
+    	model.addAttribute("enquiries", viewFilteredEnquiries);
+    	return "filterEnquiry";
+    }
+    
+
+	
 
 }

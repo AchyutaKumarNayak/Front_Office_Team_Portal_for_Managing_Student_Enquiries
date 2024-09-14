@@ -24,7 +24,7 @@ public class StudentEnquiryEntity {
 	private Integer enquiryId;
 	private String studentName;
 	private Long studentPhn;
-	private String classMode;
+	private String courseMode;
 	private String courseName;
 	private String enquiryStatus;
 	@CreationTimestamp

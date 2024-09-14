@@ -92,74 +92,9 @@
         }
     </style>
     <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
-    <script >
-     $(document).ready(function(){
-    	 $(".form-select").on("change",function(e){
-    		$.ajax({
-    			type : "GET",
-    			url : "filter-enquiries",
-    			data : {
-    				       courseName : $("#courseName").val(),
-    	    		       enqSts : $("#enqSts").val(),
-    	    		       courseMode : $("#classMode").val()
-    			        },
-    			success : function(result){
-    			$("#enqTable").hide();
-    			$("#filterResultTable").html(result);
-    			}
-    		});
-    	 });	 
-     });
-    </script>
 </head>
 <body>
 
-<div class="container">
- <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="dashboard">
-        <img alt="" src="image/logo.png" width="150px">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="dashboard">Home</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="enquiry">Add Enquiry</a>
-        </li>
-      </ul>
-        <a href="/logout" class="btn btn-danger ms-auto">Logout</a>
-      
-    </div>
-  </div>
-</nav>
-
-<div class="content">
-    <h2>View Student Enquiries</h2>
-    <div class="filters">
-        <select id="courseName" class="form-select">
-            <option value="">-Select Course-</option>
-            <!-- Add course options here -->
-            <option th:each="course : ${coursesName}" th:value="${course}"  th:text="${course}" > </option>
-        </select>
-        <select id="enqSts" class="form-select">
-            <option value="">-Select Status-</option>
-            <!-- Add enquiry status options here -->
-            <option th:each="status : ${enquiriesStatus}" th:value="${status}"  th:text="${status}" > </option>
-        </select>
-        <select id="classMode" class="form-select">
-            <option value="">-Select-</option>
-            <!-- Add class mode options here -->
-            <option value="Online">Online</option>
-            <option value="Offline">Offline</option>
-        </select>
-    </div>
-    <div id="filterResultTable"></div>
     <table class="table table-striped table-hover table-borderd" id="enqTable">
         <thead>
             <tr>
@@ -186,8 +121,6 @@
             </tr>
         </tbody>
     </table>
-</div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
