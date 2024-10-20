@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import in.achyuta.bindings.DashboardResponse;
 import in.achyuta.bindings.EnquirySearchCriteria;
 import in.achyuta.bindings.StudentEnquiryForm;
+import in.achyuta.constants.AppConstants;
 import in.achyuta.entity.CourseEntity;
 import in.achyuta.entity.EnquiryStatusEntity;
 import in.achyuta.entity.StudentEnquiryEntity;
@@ -81,11 +82,11 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 			Integer totalEnquiriesCount = enquires.size();
 			//To display total no Enrolled Enquiries(whose enquiryStatus is ENROLLED)
 		    Integer enrolledCount=	enquires.stream()
-			                        .filter(e->e.getEnquiryStatus().equals("Enrolled"))
+			                        .filter(e->e.getEnquiryStatus().equals(AppConstants.ENQ_SERVICE_FILTER_ENROLLED))
 			                        .collect(Collectors.toList()).size();
 		  //To display total no Lost Enquiries(whose enquiryStatus is LOST)
 		    Integer lostCount=	enquires.stream()
-                               .filter(e->e.getEnquiryStatus().equals("Lost"))
+                               .filter(e->e.getEnquiryStatus().equals(AppConstants.ENQ_SERVICE_FILTER_LOST))
                                .collect(Collectors.toList()).size();
 		    
 		   //Set this values to binding class DashboardResponse to send it to controller 
@@ -104,7 +105,7 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 		//to copy data from binding class StudentEnquiryForm to entity class StudentEnquiryEntity for insertint purpose
 		BeanUtils.copyProperties(form, enquiryEntity);
 		//to specify the above enquiries is belongs to specified  user
-		Integer userId = (Integer)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute(AppConstants.SESSION_USER_ID);
 		//get the specified user bsed on session userId
 		UserEntity userEntity = userRepo.findById(userId).get();
 		//Set the value of user field in StudentEnquiryEntity data with
@@ -117,7 +118,7 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 
 	@Override
 	public List<StudentEnquiryEntity> viewEnquires() {
-		Integer userId = (Integer)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute(AppConstants.SESSION_USER_ID);
 		Optional<UserEntity> byId = userRepo.findById(userId);
 		if(byId.isPresent()) {
 			UserEntity userEntity = byId.get();
@@ -157,10 +158,16 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 
 	@Override
 	public StudentEnquiryForm editEnquiry(Integer enquiryId) {
-		// TODO Auto-generated method stub
+		StudentEnquiryForm form= new StudentEnquiryForm();
+		StudentEnquiryEntity studentEnquiryEntity = studentEnquiryRepo.findById(enquiryId).get();
+		BeanUtils.copyProperties(studentEnquiryEntity,form);
+		
+			
+		
 		return null;
 	}
-
+	
+   
 	
 	
 

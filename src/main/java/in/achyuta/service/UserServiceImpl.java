@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import in.achyuta.bindings.LoginForm;
 import in.achyuta.bindings.SignUpForm;
 import in.achyuta.bindings.UnlockForm;
+import in.achyuta.constants.AppConstants;
 import in.achyuta.entity.UserEntity;
 import in.achyuta.repo.UserRepo;
 import in.achyuta.util.EmailUtils;
@@ -30,17 +31,17 @@ public class UserServiceImpl implements UserService {
 	public String login(LoginForm form) {
 		UserEntity user = userRepo.findByUserEmailAndPassword(form.getUserEmail(), form.getPassword());
 		if(null==user) {
-			return "Invalid Credentials";
+			return AppConstants.USER_SERVICE_ERR_LOGIN_VALUE;
 		}
-		if ((user.getAccountStatus()).equals("LOCKED")){
-			return "Your Account is Locked";
+		if ((user.getAccountStatus()).equals(AppConstants.USER_SERVICE_LOCKED)){
+			return AppConstants.USER_SERVICE_ERR_LOCKED_VALUE;
 		}
 		//here the succesful login of our user 
 		//herre we have to create session for user based on his userId that every user data is remember by the application
 		//ande based on usewr login correspond user data is display
-		session.setAttribute("userId", user.getUserId());
+		session.setAttribute(AppConstants.SESSION_USER_ID, user.getUserId());
 		
-		return "success";
+		return AppConstants.USER_CONTROLLER_SUCCESS;
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
 		String pwd = PasswordUtils.getTempPassword();
 		entity.setPassword(pwd);
 		//By default set AccStatus as Locked
-		entity.setAccountStatus("LOCKED");
+		entity.setAccountStatus(AppConstants.USER_SERVICE_LOCKED);
 		//TODO :Insert into DB
 		userRepo.save(entity);
 		
@@ -67,12 +68,12 @@ public class UserServiceImpl implements UserService {
 		//TODO :Sending password to the User through mail and bind to the Object
 		
 		String to=form.getUserEmail();
-		String subject="Your Temporary Password is send to your mail";
-		StringBuffer body= new StringBuffer("");
-		body.append("<h1>Unlock your account by using below temporary password </h1>");
-		body.append("Your Temporary password is : "+pwd);
-		body.append("<br/>");
-		body.append("<a href=http://localhost:8080/unlock?email="+to+"> Click here to Unlock your Account</a>");
+		String subject=AppConstants.USER_SERVICE_EMAIL_SUB;
+		StringBuffer body= new StringBuffer(AppConstants.USER_SERVICE_EMPTY_STR);
+		body.append(AppConstants.USER_SERVICE_EMAIL_BODY1);
+		body.append(AppConstants.USER_SERVICE_EMAIL_BODY2+pwd);
+		body.append(AppConstants.USER_SERVICE_EMAIL_BODY3);
+		body.append(AppConstants.USER_SERVICE_EMAIL_BODY4+to+AppConstants.USER_SERVICE_EMAIL_BODY5);
 		email.sendMail(to, subject, body.toString());
 		
 		return true;
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
 			 //set userPassword with given newPasswordgiven by the user
 			 user.setPassword(form.getNewPassword());
 			 //Set accountStatus as unlocked
-			 user.setAccountStatus("UNLOCKED");
+			 user.setAccountStatus(AppConstants.USER_SERVICE_UNLOCKED);
 			 //save the updated user in DB 
 			 userRepo.save(user);
 			 return true;
@@ -105,7 +106,7 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 		//if present send to mail with password of the corresponding mail and return true
-		String subject="Recovery of password";
+		String subject=AppConstants.USER_SERVICE_FORGOT_EMAIL_SUB;
 		String body=user.getPassword();
 		email.sendMail(userEmail, subject, body);
 		return true;

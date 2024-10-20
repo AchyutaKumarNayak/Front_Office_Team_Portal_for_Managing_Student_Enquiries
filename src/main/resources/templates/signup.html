@@ -93,9 +93,9 @@
             <p th:text="${errMsg}" class="text-danger">
             <h2>Please create account here</h2>
             <form th:action="@{/signup}" th:object="${user}" method="POST"><!--in UserController.java Ln:32  --> 
-                <input type="text" th:field="*{userName}" placeholder="Name"><!--th:field is same as binding Obj feild name  -->
-                <input type="email" th:field="*{userEmail}" placeholder="Email"><!--th:field is same as binding Obj feild name  -->
-                <input type="text" th:field="*{userPhn}" placeholder="Phone Number"><!--th:field is same as binding Obj feild name  -->
+                <input type="text" th:field="*{userName}" placeholder="Name"  required><!--th:field is same as binding Obj feild name  -->
+                <input type="email" th:field="*{userEmail}" placeholder="Email"  required><!--th:field is same as binding Obj feild name  -->
+                <input type="text" th:field="*{userPhn}" placeholder="Phone Number"  required><!--th:field is same as binding Obj feild name  -->
                 <button type="submit">SIGN UP</button>
                 <a href="login">LOGIN HERE</a>
             </form>

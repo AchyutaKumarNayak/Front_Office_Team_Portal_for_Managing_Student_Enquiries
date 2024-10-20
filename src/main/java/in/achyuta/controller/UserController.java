@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import in.achyuta.bindings.LoginForm;
 import in.achyuta.bindings.SignUpForm;
 import in.achyuta.bindings.UnlockForm;
+import in.achyuta.constants.AppConstants;
 import in.achyuta.service.UserService;
 
 @Controller
@@ -23,82 +24,82 @@ public class UserController {
 	
 	
 	
-	@GetMapping("/signup")
+	@GetMapping(AppConstants.USER_CONTROLLER_MAPPING_SIGNUP)
 	public String signUpPage(Model model) {
 		//when my sign up page is loading  i want to send my empty binding Obj
-		model.addAttribute("user", new SignUpForm());//key(th:object), new empty binding Obj
-		return "signup";
+		model.addAttribute(AppConstants.USER_CONTROLLER_USER, new SignUpForm());//key(th:object), new empty binding Obj
+		return AppConstants.USER_CONTROLLER_SIGNUP;
 	}
 	
-	@PostMapping("/signup")
-	public String signUpPage(@ModelAttribute("user") SignUpForm form,Model model) {
+	@PostMapping(AppConstants.USER_CONTROLLER_MAPPING_SIGNUP)
+	public String signUpPage(@ModelAttribute(AppConstants.USER_CONTROLLER_USER) SignUpForm form,Model model) {
 		boolean status = userService.signUp(form);
 		if (status) {
-			model.addAttribute("succMsg", "Check your Email");
+			model.addAttribute(AppConstants.SUCCESS_MSG_KEY,AppConstants.SUCCESS_MSG_SIGNUP_VALUE);
 		}
 		else {
-			model.addAttribute("errMsg", "Choose unique email");
+			model.addAttribute(AppConstants.ERR_MSG_KEY,AppConstants.ERR_MSG_SIGNUP_VALUE);
 		}
-		return "signup";
+		return AppConstants.USER_CONTROLLER_SIGNUP;
 	}
 	
-	@GetMapping("/unlock")
+	@GetMapping(AppConstants.USER_CONTROLLER_MAPPING_UNLOCK)
 	public String unlockPage(@RequestParam String email,Model model) {
 		
 		UnlockForm unlockForm= new UnlockForm();
 		unlockForm.setUserEmail(email);
-		model.addAttribute("unlock", unlockForm);
-		return "unlock";
+		model.addAttribute(AppConstants.USER_CONTROLLER_UNLOCK, unlockForm);
+		return AppConstants.USER_CONTROLLER_UNLOCK;
 	}
-	@PostMapping("/unlock")
-	public String unlockUserAccount(@ModelAttribute("unlock") UnlockForm form, Model model) {
+	@PostMapping(AppConstants.USER_CONTROLLER_MAPPING_UNLOCK)
+	public String unlockUserAccount(@ModelAttribute(AppConstants.USER_CONTROLLER_UNLOCK) UnlockForm form, Model model) {
 		
 		if((form.getNewPassword()).equals(form.getConfirmPassword())) {
 			boolean status = userService.unlock(form);
 			if(status) {
-				model.addAttribute("succMsg", "Account unlocked Succesfully");
+				model.addAttribute(AppConstants.SUCCESS_MSG_KEY, AppConstants.SUCCESS_MSG_UNLOCK_VALUE);
 			}else {
-				model.addAttribute("errMsg", "Temporary password is incorrect , Please check your email");
+				model.addAttribute(AppConstants.ERR_MSG_KEY, AppConstants.ERR_MSG_UNLOCK_VALUE1);
 			}
 		}else {
-			model.addAttribute("errMsg", "New password and Confirm password must be same");
+			model.addAttribute(AppConstants.ERR_MSG_KEY,AppConstants.ERR_MSG_UNLOCK_VALUE2 );
 		}
 //		System.out.println(form);
-		return "unlock";
+		return AppConstants.USER_CONTROLLER_UNLOCK;
 	}
 	
 	@GetMapping("/login")
 	public String logInPage(Model model){
-		 model.addAttribute("loginForm", new LoginForm());
-		return "login";
+		 model.addAttribute(AppConstants.USER_CONTROLLER_LOGIN_FORM, new LoginForm());
+		return AppConstants.USER_CONTROLLER_LOGIN;
 	}
-	@PostMapping("/login")
-	public String logInPageHandle(@ModelAttribute("login") LoginForm form,Model model){
+	@PostMapping(AppConstants.USER_CONTROLLER_MAPPING_LOGIN)
+	public String logInPageHandle(@ModelAttribute(AppConstants.USER_CONTROLLER_LOGIN) LoginForm form,Model model){
 		String status = userService.login(form);
-		if(status.contains("success")) {
+		if(status.contains(AppConstants.USER_CONTROLLER_SUCCESS)) {
 			return "redirect:/dashboard";
 		}else {
-			model.addAttribute("errMsg", status);
+			model.addAttribute(AppConstants.ERR_MSG_KEY, status);
 		}
 		
-		return "login";
+		return AppConstants.USER_CONTROLLER_LOGIN;
 	}
 	
 	
-	@GetMapping("/forgot")
+	@GetMapping(AppConstants.USER_CONTROLLER_MAPPING_FORGOT)
 	public String forgotPwdPage() {
-		return "forgotPwd";
+		return AppConstants.USER_CONTROLLER_FORGOT_PWD;
 	}
 	@PostMapping("/forgot")
-	public String forgotPwdPageHandle(@RequestParam("email") String email,Model model) {
+	public String forgotPwdPageHandle(@RequestParam(AppConstants.USER_CONTROLLER_EMAIL) String email,Model model) {
 		System.out.println(email);
 		boolean status = userService.fotgot(email);
 		if (status) {
-			model.addAttribute("succMsg", "Password is send to "+email);
+			model.addAttribute(AppConstants.SUCCESS_MSG_KEY, AppConstants.SUCCESS_MSG_FORGOT_VALUE+email);
 		}else {
-			model.addAttribute("errMsg","Invalid Credentials");
+			model.addAttribute(AppConstants.ERR_MSG_KEY,AppConstants.ERR_MSG_FORGOT_VALUE);
 		}
-		return "forgotPwd";
+		return AppConstants.USER_CONTROLLER_FORGOT_PWD;
 	}
 	
 }
