@@ -7,5 +7,5 @@ import in.achyuta.entity.StudentEnquiryEntity;
 
 @Repository
 public interface StudentEnquiryRepo extends JpaRepository<StudentEnquiryEntity, Integer> {
-
+    
 }

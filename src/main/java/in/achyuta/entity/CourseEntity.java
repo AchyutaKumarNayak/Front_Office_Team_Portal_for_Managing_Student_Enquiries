@@ -1,5 +1,6 @@
 package in.achyuta.entity;
 
+import in.achyuta.constants.AppConstants;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +10,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "AIT_COURSE_DTLS")
+@Table(name = AppConstants.COURSE_ENTITY_TBL)
 public class CourseEntity {
 	
 	@Id

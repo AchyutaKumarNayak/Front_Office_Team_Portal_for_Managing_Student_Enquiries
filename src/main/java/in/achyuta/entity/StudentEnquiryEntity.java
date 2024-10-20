@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import in.achyuta.constants.AppConstants;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "AIT_STUDENT_ENQUIRY")
+@Table(name = AppConstants.STUDENT_ENQUIRY_ENTITY_TBL)
 public class StudentEnquiryEntity {
 	
 	@Id
@@ -32,7 +33,7 @@ public class StudentEnquiryEntity {
 	@UpdateTimestamp
 	private LocalDate updatedDate;
 	@ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = AppConstants.STUDENT_ENQUIRY_USER_FK)
 	private UserEntity user;
 	
 	
